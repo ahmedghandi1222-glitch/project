@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoleMate | Akıllı Ayakkabı Teknolojileri</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- MARKALAMA VE RENKLER --- */
+        :root {
+            --primary: #ff4757;    /* Enerjik Spor Kırmızısı */
+            --secondary: #2f3542;  /* Koyu Gri (Asfalt) */
+            --accent: #ffa502;     /* Vurgu Turuncusu */
+            --bg: #f1f2f6;
+            --text: #2f3542;
+        }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+        
+        /* HEADER */
+        header {
+            background: white; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .logo { font-size: 1.8rem; font-weight: 900; color: var(--secondary); font-style: italic; }
+        .logo span { color: var(--primary); }
+        .nav-links a { margin-left: 20px; text-decoration: none; color: var(--secondary); font-weight: 600; }
+        .cart-badge { background: var(--primary); color: white; padding: 3px 8px; border-radius: 50%; font-size: 0.8rem; }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1556906781-9a412961d28c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover; background-position: center; height: 65vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; color: white;
+        }
+        .hero h1 { font-size: 3.5rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 30px; font-weight: 300; }
+        .cta-btn {
+            background: var(--primary); color: white; padding: 15px 40px; border: none; 
+            border-radius: 30px; font-size: 1.1rem; cursor: pointer; transition: 0.3s; font-weight: bold;
+        }
+        .cta-btn:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(255, 71, 87, 0.5); }
+
+        /* DEĞER ÖNERİSİ (GÖREV A) */
+        .features { display: flex; gap: 20px; padding: 0 10%; margin-top: -50px; flex-wrap: wrap; justify-content: center; }
+        .feature-card {
+            background: white; padding: 2rem; border-radius: 10px; text-align: center; flex: 1; min-width: 250px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: 0.3s;
+        }
+        .feature-card:hover { transform: translateY(-10px); }
+        .feature-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+
+        /* ÜRÜNLER (GÖREV B & ERP) */
+        .products { padding: 5rem 10%; }
+        .product-grid { display: flex; gap: 30px; flex-wrap: wrap; }
+        .p-card { background: white; border-radius: 15px; overflow: hidden; flex: 1; min-width: 300px; position: relative; }
+        .p-card img { width: 100%; height: 250px; object-fit: cover; }
+        .p-info { padding: 20px; }
+        
+        .stock-alert { 
+            color: #e84118; font-size: 0.8rem; font-weight: bold; 
+            display: flex; align-items: center; gap: 5px; margin-bottom: 10px; 
+        }
+        .dot { width: 8px; height: 8px; background: #e84118; border-radius: 50%; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% {opacity:1} 50% {opacity:0.4} 100% {opacity:1} }
+
+        /* GELİR MODELİ (GÖREV C) */
+        .pricing { background: white; padding: 5rem 10%; text-align: center; }
+        .pricing-box { 
+            border: 2px solid #f1f2f6; padding: 2rem; border-radius: 20px; display: inline-block; 
+            width: 300px; margin: 20px; vertical-align: top; position: relative;
+        }
+        .pricing-box.active { border-color: var(--primary); box-shadow: 0 10px 40px rgba(255, 71, 87, 0.15); }
+        .badge { background: var(--accent); position: absolute; top: -15px; left: 50%; transform: translateX(-50%); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.8rem; }
+
+        /* AI BÖLÜMÜ */
+        .ai-zone { background: var(--secondary); color: white; padding: 4rem 10%; display: flex; align-items: center; gap: 3rem; flex-wrap: wrap; }
+        
+        /* FOOTER */
+        footer { background: #1e272e; color: #808e9b; padding: 3rem 10%; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Sole<span>Mate</span></div>
+        <nav class="nav-links">
+            <a href="#koleksiyon">Koleksiyon</a>
+            <a href="#ai-tech">AI Ayak Analizi</a>
+            <a href="#abonelik">Abonelik</a>
+            <a href="#">Sepet <span class="cart-badge" id="cart-count">0</span></a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Sadece Koşma, <br> <span style="color:var(--primary)">Uçuşa Geç.</span></h1>
+        <p>Geri dönüştürülmüş karbon fiber taban ve AI destekli tabanlık teknolojisi.</p>
+        <button class="cta-btn" onclick="scrollToSec('koleksiyon')">Modelini Seç</button>
+    </section>
+
+    <div class="features">
+        <div class="feature-card">
+            <i class="fas fa-feather-alt"></i>
+            <h3>Ultra Hafif</h3>
+            <p>Ayağınızda yokmuş gibi. Sadece 180 gram ağırlığında.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>NFC Çipli</h3>
+            <p>Telefonunu ayakkabına dokundur, koşu istatistiklerini gör.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fas fa-undo"></i>
+            <h3>30 Gün Deneme</h3>
+            <p>Evde giy, koş, test et. Beğenmezsen koşulsuz iade.</p>
+        </div>
+    </div>
+
+    <section class="products" id="koleksiyon">
+        <h2>Sezonun Favorileri</h2>
+        <p>ERP sistemimiz sayesinde stoklar saniyelik güncellenir.</p>
+        
+        <div class="product-grid">
+            <div class="p-card">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Kırmızı Ayakkabı">
+                <div class="p-info">
+                    <div class="stock-alert">
+                        <div class="dot"></div>
+                        ERP UYARISI: 42 Numara tükenmek üzere!
+                    </div>
+                    <h3>Red Runner Pro</h3>
+                    <p>Profesyonel maratoncular için tasarlandı.</p>
+                    <h4 style="color:var(--primary)">₺2.499</h4>
+                    <button class="cta-btn" style="width:100%; padding:10px;" onclick="addToCart('Red Runner')">Sepete Ekle</button>
+                </div>
+            </div>
+
+            <div class="p-card">
+                <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Yeşil Ayakkabı">
+                <div class="p-info">
+                    <div style="color:green; font-size:0.8rem; margin-bottom:10px;"><i class="fas fa-check"></i> Merkez Depo Stokta</div>
+                    <h3>Urban Street X</h3>
+                    <p>Günlük kullanım için maksimum konfor.</p>
+                    <h4 style="color:var(--primary)">₺1.899</h4>
+                    <button class="cta-btn" style="width:100%; padding:10px;" onclick="addToCart('Urban Street')">Sepete Ekle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-zone" id="ai-tech">
+        <div style="flex:1">
+            <h2><i class="fas fa-robot"></i> SoleMate AI: Ayak Analizi</h2>
+            <p>"İnternetten aldım, ayağıma olmadı" devri bitti. Yapay zekamız, yüklediğiniz fotoğraftan ayak kemer yapınızı (Arch Type) analiz eder ve size en uygun modeli önerir.</p>
+            <br>
+            <small>Senaryo: Müşteri ayak fotoğrafını yükler...</small>
+        </div>
+        <div style="flex:1; background:rgba(255,255,255,0.1); padding:2rem; border-radius:10px; border:1px solid #555;">
+            <h3>AI Analiz Simülasyonu</h3>
+            <button class="cta-btn" style="background:white; color:var(--secondary)" onclick="runAiScan()">Taramayı Başlat</button>
+            <div id="ai-result" style="margin-top:15px; color:#bdc3c7; display:none;"></div>
+        </div>
+    </section>
+
+    <section class="pricing" id="abonelik">
+        <h2>Gelir Modeli: Sadece Satış Değil, Süreklilik</h2>
+        <p>Müşteri Yaşam Boyu Değeri (LTV) artırmak için abonelik kutusu.</p>
+        
+        <div class="pricing-box">
+            <h3>Standart Alım</h3>
+            <h2>₺0</h2>
+            <p>Sadece ayakkabı ücreti.</p>
+            <button class="cta-btn" style="background:#ccc; font-size:0.9rem">Seçildi</button>
+        </div>
+
+        <div class="pricing-box active">
+            <div class="badge">HOCANIN DİKKATİNE: DÜZENLİ GELİR</div>
+            <h3>"Temiz Adımlar" Aboneliği</h3>
+            <h2>₺149 <small>/ 3 ayda bir</small></h2>
+            <p style="font-size:0.9rem; text-align:left; margin-top:20px;">
+                <i class="fas fa-check"></i> 3 Çift Performans Çorabı<br>
+                <i class="fas fa-check"></i> Ayakkabı Temizleme Köpüğü<br>
+                <i class="fas fa-check"></i> Bağcık Yenileme
+            </p>
+            <button class="cta-btn" style="font-size:0.9rem" onclick="alert('Abone kazanıldı! Düzenli gelir akışı başladı.')">Abone Ol</button>
+        </div>
+    </section>
+
+    <footer>
+        <h3>İş Ortaklarımız</h3>
+        <div style="display:flex; justify-content:center; gap:20px; font-size:1.5rem; margin:20px 0; opacity:0.6">
+            <i class="fab fa-dhl"></i>
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-aws"></i>
+        </div>
+        <p>SoleMate - E-Ticaret Dönem Projesi &copy; 2024</p>
+    </footer>
+
+    <script>
+        let cart = 0;
+        function addToCart(productName) {
+            cart++;
+            document.getElementById('cart-count').innerText = cart;
+            alert("ERP SİSTEMİ: " + productName + " için stok veritabanı güncellendi. Depo emri oluşturuldu.");
+        }
+
+        function scrollToSec(id) {
+            document.getElementById(id).scrollIntoView({behavior:'smooth'});
+        }
+
+        function runAiScan() {
+            const res = document.getElementById('ai-result');
+            res.style.display = 'block';
+            res.innerHTML = "Görüntü İşleniyor... %20 <br> Ayak Kemeri Ölçülüyor... %60";
+            
+            setTimeout(() => {
+                res.innerHTML = `
+                    <strong style="color:#2ed573">✅ ANALİZ TAMAMLANDI</strong><br>
+                    <strong>Ayak Tipi:</strong> Yüksek Kemer (High Arch)<br>
+                    <strong>Öneri:</strong> 'Red Runner Pro' modelinin taban yapısı size %98 uygun.<br>
+                    <em>(AI, yanlış numara iade oranını %40 düşürür)</em>
+                `;
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
